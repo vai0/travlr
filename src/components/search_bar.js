@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { placesFetchData } from '../actions/index';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -16,7 +18,10 @@ class SearchBar extends Component {
 
   _onFormSubmit(event) {
     event.preventDefault();
-    this.props.fetchPlaces(this.state.term);
+    this.props.placesFetchData({
+      keyword: this.state.term,
+      bounds: this.props.mapBounds
+    });
   }
 
   render() {
@@ -31,4 +36,11 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+function mapStateToProps(state) {
+  return {
+    mapCenter: state.map.mapCenter,
+    mapBounds: state.map.mapBounds
+  }
+}
+
+export default connect(mapStateToProps, { placesFetchData })(SearchBar);
