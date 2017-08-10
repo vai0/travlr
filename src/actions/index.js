@@ -1,7 +1,4 @@
-// import PromisedLocation from 'promised-location';
-
 export const FETCH_LOCATION = 'FETCH_LOCATION';
-export const SET_MAP_CENTER = 'SET_MAP_CENTER';
 export const SET_MAP_BOUNDS = 'SET_MAP_BOUNDS';
 export const PLACES_FETCH_DATA_SUCCESS = 'PLACES_FETCH_DATA_SUCCESS';
 export const PLACES_HAS_ERRORED = 'PLACES_HAS_ERRORED';
@@ -20,44 +17,17 @@ export function fetchLocation() {
           type: FETCH_LOCATION,
           location
         });
-        dispatch(setMapCenter(location));
       });
     } else {
       console.log('fetchLocation error: ', error);
     }
   }
-
-  // const locator = new PromisedLocation();
-  // return locator
-  //   .then(position => {
-  //     return {
-  //       type: FETCH_LOCATION,
-  //       payload: {
-  //         lat: position.coords.latitude,
-  //         lng: position.coords.longitude
-  //       }
-  //     }
-  //   })
-  //   .catch(error => {
-  //     console.log('fetchLocation error: ', error);
-  //     return {
-  //       type: FETCH_LOCATION,
-  //       payload: null
-  //     }
-  //   });
-}
-
-export function setMapCenter(coordinates) {
-  return {
-    type: SET_MAP_CENTER,
-    payload: coordinates
-  };
 }
 
 export function setMapBounds(bounds) {
   return {
     type: SET_MAP_BOUNDS,
-    payload: bounds
+    bounds
   }
 }
 

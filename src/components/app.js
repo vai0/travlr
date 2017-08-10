@@ -19,10 +19,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ userCoords }) {
-  return {
-    userCoords
-  };
-}
-
-export default connect(mapStateToProps, { fetchLocation })(App);
+export default connect(null, { fetchLocation })(App);
