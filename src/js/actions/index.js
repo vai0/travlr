@@ -4,6 +4,7 @@ export const PLACES_FETCH_DATA_SUCCESS = 'PLACES_FETCH_DATA_SUCCESS';
 export const PLACES_HAS_ERRORED = 'PLACES_HAS_ERRORED';
 export const PLACES_IS_LOADING = 'PLACES_IS_LOADING';
 export const SET_MARKERS = 'SET_MARKERS';
+export const PLACES_HIGHLIGHTED = 'PLACES_HIGHLIGHTED';
 
 export function fetchLocation() {
   return (dispatch) => {
@@ -33,16 +34,17 @@ export function setMapBounds(bounds) {
 
 export function placesFetchData(request) {
   return (dispatch) => {
+    dispatch(placesHasErrored(false));
     dispatch(placesIsLoading(true));
     const service = new google.maps.places.PlacesService(document.createElement('div'));
 
     service.nearbySearch(request, (places, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        dispatch(placesIsLoading(false));
         dispatch({
           type: PLACES_FETCH_DATA_SUCCESS,
           places
         });
+        dispatch(placesIsLoading(false));
         dispatch(setMarkers(places));
       } else {
         dispatch(placesHasErrored(true));
@@ -62,6 +64,14 @@ export function placesIsLoading(bool) {
   return {
     type: PLACES_IS_LOADING,
     isLoading: bool
+  }
+}
+
+export function placesSetHighlight(place_id, bool) {
+  return {
+    type: PLACES_HIGHLIGHTED,
+    isHighlighted: bool,
+    place_id
   }
 }
 

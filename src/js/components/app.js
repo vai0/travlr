@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchLocation } from '../actions/index';
 import SearchBar from './search_bar';
 import Map from './map';
+import PlacesList from './places_list';
 
 class App extends Component {
   componentDidMount() {
@@ -13,6 +14,7 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
+        <PlacesList />
         <Map />
       </div>
     );

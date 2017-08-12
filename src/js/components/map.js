@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setMapBounds, setMarkers } from '../actions/index';
+import { setMapBounds, setMarkers, placesSetHighlight } from '../actions/index';
 
 class Map extends Component {
   componentDidMount() {
@@ -40,6 +40,9 @@ class Map extends Component {
           map: this.map,
           title: 'Hello World!'
         });
+        marker.place_id = place_id;
+        marker.addListener('mouseover', () => this.props.placesSetHighlight(place_id, true));
+        marker.addListener('mouseout', () => this.props.placesSetHighlight(place_id, false));
         this.markerObjects.push(marker);
       }
     }
@@ -60,4 +63,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { setMapBounds, setMarkers })(Map);
+export default connect(mapStateToProps, { setMapBounds, setMarkers, placesSetHighlight })(Map);

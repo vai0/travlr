@@ -6,7 +6,7 @@ export default function(state = {}, action) {
       return {
         ...state,
         mapBounds: action.bounds
-      }
+      };
     default:
       return state;
   }

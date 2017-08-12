@@ -1,14 +1,17 @@
+import 'styles/index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import ReduxPromise from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
 import App from './components/app';
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise, ReduxThunk)(createStore);
+const logger = createLogger({ collapsed: true });
+
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk, logger)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

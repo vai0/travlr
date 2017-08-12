@@ -1,26 +1,79 @@
+var webpack = require('webpack');
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var VENDOR_LIBS = [
+  'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk'
+];
+
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
+  entry: {
+    bundle: './src/js/index.js',
+    vendor: VENDOR_LIBS
+  },
   output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'), // This is where images AND js will go
+    filename: '[name].[chunkhash].js'
   },
   module: {
-    loaders: [{
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-1']
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react', 'es2015', 'stage-1']
+          }
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader",
+        }]
+      },
+      {
+        test: /\.(woff2|woff)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: './fonts/[name].[ext]',
+            limit: 50000,
+            mimetype: 'application/font-woff',
+          },
+        }
+      },
+      {
+        test: /\.(svg|png|jpg)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: './images/[name].[ext]',
+            limit: 50000
+          }
+        }
       }
-    }]
+    ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    modules: [
+      path.resolve('./src/js/components'),
+      path.resolve('./src/js'),
+      path.resolve('./src'),
+      'node_modules'
+    ]
   },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
-  }
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest']
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
+    })
+  ]
 };
