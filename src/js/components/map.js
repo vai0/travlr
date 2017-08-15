@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setMapBounds, setMarkers, placesSetHighlight } from '../actions/index';
+import { currentMapBounds, setMarkers, placesSetHighlight } from '../actions/index';
 
 class Map extends Component {
   componentDidMount() {
@@ -9,16 +9,16 @@ class Map extends Component {
       zoom: 13
     });
 
-    this.setMapBounds();
-    this.map.addListener('bounds_changed', () => this.setMapBounds());
+    this._bindMapBounds();
+    this.map.addListener('bounds_changed', () => this._bindMapBounds());
     this.markerObjects = [];
   }
 
-  setMapBounds() {
-    this.props.setMapBounds(this.map.getBounds());
+  _bindMapBounds() {
+    this.props.currentMapBounds(this.map.getBounds());
   }
 
-  removeMarkerObjects() {
+  _removeMarkerObjects() {
     this.markerObjects.forEach(marker => marker.setMap(null));
     this.markerObjects.length = 0;
   }
@@ -28,17 +28,26 @@ class Map extends Component {
     const { location, userCoordsReceived } = nextProps.userCoords;
     if (this.props.userCoords.userCoordsReceived !== userCoordsReceived) {
       this.map.panTo(location);
-      this.setMapBounds();
+      this._bindMapBounds();
+    }
+
+    // when place details is open, center map on that location
+    if (!this.props.placeDetails.place && nextProps.placeDetails.place) {
+      this.map.panTo(nextProps.placeDetails.place.geometry.location);
+    }
+
+    // when placeDetails is closed, pan map back to the bounds when places query was made
+    if (this.props.placeDetails.place && !nextProps.placeDetails.place) {
+      this.map.panToBounds(nextProps.places.mapBounds);
     }
 
     // place markers on map for each place in Places reducer
     if (this.props.markers !== nextProps.markers) {
-      this.removeMarkerObjects();
+      this._removeMarkerObjects();
       for (let place_id in nextProps.markers) {
         const marker = new google.maps.Marker({
           position: nextProps.markers[place_id].location,
-          map: this.map,
-          title: 'Hello World!'
+          map: this.map
         });
         marker.place_id = place_id;
         marker.addListener('mouseover', () => this.props.placesSetHighlight(place_id, true));
@@ -55,12 +64,14 @@ class Map extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ userCoords, markers, places, placeDetails, map }) {
   return {
-    userCoords: state.userCoords,
-    markers: state.markers,
-    places: state.places
+    userCoords,
+    markers,
+    places,
+    placeDetails,
+    map
   };
 }
 
-export default connect(mapStateToProps, { setMapBounds, setMarkers, placesSetHighlight })(Map);
+export default connect(mapStateToProps, { currentMapBounds, setMarkers, placesSetHighlight })(Map);

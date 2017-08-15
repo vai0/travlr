@@ -17,11 +17,8 @@ const PlacesList = ({ placesList }) => {
     renderPlaces = '';
   }
 
-  console.log('renderPlaces: ', renderPlaces);
-
   return (
     <div className="places-list-container">
-      <div className="search-bar-background"></div>
       <div className="places-list">
         {renderPlaces}
       </div>

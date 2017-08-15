@@ -1,6 +1,6 @@
-import { PLACES_FETCH_DATA_SUCCESS, PLACES_HAS_ERRORED, PLACES_IS_LOADING, PLACES_HIGHLIGHTED } from '../actions/index';
+import { PLACES_FETCH_DATA_SUCCESS, PLACES_HAS_ERRORED, PLACES_IS_LOADING, PLACES_HIGHLIGHTED, PLACES_GET_MAP_BOUNDS } from '../actions/index';
 
-export default function(state = { places: null, isLoading: false, hasErrored: false }, action) {
+export default function(state = { places: null, isLoading: false, hasErrored: false, mapBounds: null }, action) {
   switch(action.type) {
     case PLACES_FETCH_DATA_SUCCESS: {
       const newPlaces = {};
@@ -40,6 +40,12 @@ export default function(state = { places: null, isLoading: false, hasErrored: fa
         ...state,
         places: newPlaces
       }
+    }
+    case PLACES_GET_MAP_BOUNDS: {
+      return {
+        ...state,
+        mapBounds: action.bounds
+      };
     }
     default:
       return state;
