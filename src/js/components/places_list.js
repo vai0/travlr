@@ -5,17 +5,14 @@ import { setMarkers } from '../actions/index';
 
 class PlacesList extends Component {
   componentWillMount() {
-    this._setMarkers();
-    console.log('places_list: WILLMOUNT');
+    this._setMarkers(this.props.placesList.places);
   }
 
-  componentWillReceiveProps(next) {
-    this._setMarkers();
-    console.log('places_list: WILLRECEIVEPROPS');
+  componentWillReceiveProps(nextProps) {
+    this._setMarkers(nextProps.placesList.places);
   }
 
-  _setMarkers() {
-    const places = this.props.placesList.places;
+  _setMarkers(places) {
     const placesArr = Object.keys(places).map(place_id => places[place_id]);
     this.props.setMarkers(placesArr);
   }

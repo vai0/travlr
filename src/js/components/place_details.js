@@ -10,7 +10,7 @@ class PlaceDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.placeDetails.place !== nextProps.placeDetails.place) {
-      this.props.setMarkers(this.props.placeDetails.place);
+      this.props.setMarkers(nextProps.placeDetails.place);
     }
   }
 
@@ -67,7 +67,7 @@ class PlaceDetails extends Component {
   }
 
   render() {
-    const { formatted_address, formatted_phone_number, name, opening_hours, photos, rating, website, url } = this.props.placeDetails.place;
+    const { formatted_address, formatted_phone_number, name, opening_hours, photos, rating, website, url, place_id } = this.props.placeDetails.place;
     return (
       <div>
         <button onClick={this._closePlaceDetails.bind(this)}>Back</button>
@@ -78,8 +78,8 @@ class PlaceDetails extends Component {
         {formatted_phone_number}<br />
         {rating}<br />
         {website}<br />
-        {url}<br
-      />
+        {url}<br/><br/><br/><br/>
+        place_id: {place_id}
         <br />
         <br />
         <br />

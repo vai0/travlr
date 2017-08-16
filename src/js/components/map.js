@@ -31,7 +31,7 @@ class Map extends Component {
       this._bindMapBounds();
     }
 
-    // when place details is open, center map on that location
+    // when placeDetails is open, center map on that location
     if (!this.props.placeDetails.place && nextProps.placeDetails.place) {
       this.map.panTo(nextProps.placeDetails.place.geometry.location);
     }
@@ -46,6 +46,14 @@ class Map extends Component {
       this.map.panToBounds(nextProps.places.mapBounds);
     }
 
+    // when a bookmark is selected while placeDetails is open
+    if (
+      this.props.placeDetails.place !== nextProps.placeDetails.place &&
+      nextProps.placeDetails.place
+    ) {
+      this.map.panTo(nextProps.placeDetails.place.geometry.location);
+    }
+
     // place markers on map for each place in Places reducer
     if (this.props.markers !== nextProps.markers) {
       this._removeMarkerObjects();
@@ -55,9 +63,11 @@ class Map extends Component {
           map: this.map
         });
         marker.place_id = place_id;
+
         // marker.addListener('mouseover', () => this.props.placesSetHighlight(place_id, true));
         // marker.addListener('mouseout', () => this.props.placesSetHighlight(place_id, false));
         this.markerObjects.push(marker);
+        console.log('markers: ', this.markerObjects);
       }
     }
   }
