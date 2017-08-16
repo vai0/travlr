@@ -24,7 +24,7 @@ class Map extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // center the map to the user's location after location is shared
+    // center the map to the user's location after geolocation is shared
     const { location, userCoordsReceived } = nextProps.userCoords;
     if (this.props.userCoords.userCoordsReceived !== userCoordsReceived) {
       this.map.panTo(location);
@@ -37,7 +37,12 @@ class Map extends Component {
     }
 
     // when placeDetails is closed, pan map back to the bounds when places query was made
-    if (this.props.placeDetails.place && !nextProps.placeDetails.place) {
+    if (
+      this.props.placeDetails.place &&
+      !nextProps.placeDetails.place &&
+      nextProps.places.places &&
+      nextProps.places.mapBounds
+    ) {
       this.map.panToBounds(nextProps.places.mapBounds);
     }
 
@@ -50,8 +55,8 @@ class Map extends Component {
           map: this.map
         });
         marker.place_id = place_id;
-        marker.addListener('mouseover', () => this.props.placesSetHighlight(place_id, true));
-        marker.addListener('mouseout', () => this.props.placesSetHighlight(place_id, false));
+        // marker.addListener('mouseover', () => this.props.placesSetHighlight(place_id, true));
+        // marker.addListener('mouseout', () => this.props.placesSetHighlight(place_id, false));
         this.markerObjects.push(marker);
       }
     }

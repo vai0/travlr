@@ -27,6 +27,7 @@ class SearchBar extends Component {
         <input
           value={this.state.term}
           onChange={this._onInputChange.bind(this)}
+          placeholder="Search and bookmark places..."
         />
       </form>
     );

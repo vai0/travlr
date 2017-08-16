@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { placeDetailsFetchData } from '../actions/index';
+import { flattenBookmarks } from '../helpers';
 
 class Place extends Component {
   handleClick() {
@@ -8,25 +9,14 @@ class Place extends Component {
   }
 
   _isBookmarked(place_id) {
-    const flattened = this._flattenBookmarks(this.props.bookmarks);
+    const flattened = flattenBookmarks(this.props.bookmarks);
     return flattened[place_id] ? true : false;
-  }
-
-  _flattenBookmarks(bookmarks) {
-    let flattened = {};
-    for (let label in bookmarks) {
-      flattened = {
-        ...flattened,
-        ...bookmarks[label]
-      };
-    }
-    return flattened;
   }
 
   _renderLabel() {
     const place_id = this.props.place.place_id;
     if (this._isBookmarked(place_id)) {
-      const flattened = this._flattenBookmarks(this.props.bookmarks);
+      const flattened = flattenBookmarks(this.props.bookmarks);
       const label = flattened[place_id].label;
       return <div>{label}</div>;
     }

@@ -4,7 +4,8 @@ export default function(state = { place: null, isLoading: false, hasErrored: fal
   switch(action.type) {
     case PLACE_DETAILS_FETCH_DATA_SUCCESS:
       return {
-        ...state,
+        isLoading: false,
+        hasErrored: false,
         place: action.place
       };
     case PLACE_DETAILS_IS_LOADING:

@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { placeDetailsClose, bookmarksRemovePlace } from '../actions/index';
+import { placeDetailsClose, bookmarksRemovePlace, setMarkers } from '../actions/index';
+import { flattenBookmarks } from '../helpers';
 
 class PlaceDetails extends Component {
+  componentWillMount() {
+    this.props.setMarkers(this.props.placeDetails.place);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.placeDetails.place !== nextProps.placeDetails.place) {
+      this.props.setMarkers(this.props.placeDetails.place);
+    }
+  }
+
   _closePlaceDetails() {
     this.props.placeDetailsClose();
   }
@@ -12,7 +23,7 @@ class PlaceDetails extends Component {
   }
 
   _isBookmarked(place_id) {
-    const flattened = this._flattenBookmarks(this.props.bookmarks);
+    const flattened = flattenBookmarks(this.props.bookmarks);
     return flattened[place_id] ? true : false;
   }
 
@@ -37,7 +48,7 @@ class PlaceDetails extends Component {
 
   _fetchLabel() {
     const place_id = this.props.placeDetails.place.place_id;
-    const flattened = this._flattenBookmarks(this.props.bookmarks);
+    const flattened = flattenBookmarks(this.props.bookmarks);
     return flattened[place_id].label;
   }
 
@@ -86,4 +97,4 @@ function mapStateToProps({ placeDetails, places, bookmarks }) {
   };
 }
 
-export default connect(mapStateToProps, { placeDetailsClose, bookmarksRemovePlace })(PlaceDetails);
+export default connect(mapStateToProps, { placeDetailsClose, bookmarksRemovePlace, setMarkers })(PlaceDetails);

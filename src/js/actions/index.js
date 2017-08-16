@@ -65,13 +65,21 @@ export function currentMapBounds(bounds) {
 
 export function setMarkers(places) {
   const markers = {};
-  places.forEach((place) => {
-    markers[place.place_id] = {
-      place_id: place.place_id,
-      location: place.geometry.location,
+  if (Array.isArray(places)) {
+    places.forEach((place) => {
+      markers[place.place_id] = {
+        place_id: place.place_id,
+        location: place.geometry.location,
+        isHighlighted: false
+      };
+    });
+  } else {
+    markers[places.place_id] = {
+      place_id: places.place_id,
+      location: places.geometry.location,
       isHighlighted: false
-    };
-  });
+    }
+  }
   return {
     type: SET_MARKERS,
     markers
@@ -89,13 +97,12 @@ export function placesFetchData(request, bounds) {
 
     service.nearbySearch(request, (places, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
+        dispatch(placeDetailsClose());
+        dispatch(placesIsLoading(false));
         dispatch({
           type: PLACES_FETCH_DATA_SUCCESS,
           places
         });
-        dispatch(placeDetailsClose());
-        dispatch(placesIsLoading(false));
-        dispatch(setMarkers(places));
       } else {
         dispatch(placesHasErrored(true));
         console.log('places error status: ', status);
@@ -144,11 +151,11 @@ export function placeDetailsFetchData(placeId) {
 
     service.getDetails(request, (place, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
+        dispatch(placeDetailsIsLoading(false));
         dispatch({
           type: PLACE_DETAILS_FETCH_DATA_SUCCESS,
           place
         });
-        dispatch(placeDetailsIsLoading(false));
       } else {
         dispatch(placeDetailsHasErrored(true));
         console.log('place error status: ', status);
