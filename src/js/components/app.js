@@ -24,6 +24,8 @@ class App extends Component {
     this._handleClickFetchBookmarks = this._handleClickFetchBookmarks.bind(this);
   }
 
+
+
   componentDidMount() {
     this.props.fetchLocation();
     this.props.bookmarksRefresh(this.props.bookmarks);
@@ -156,7 +158,7 @@ class App extends Component {
     if (!this.state.showAddLabelPage) {
       return (
         <div className="search-bar-container">
-          <SearchBar />
+          <SearchBar placeDetails={this.props.placeDetails.place} />
           {this._renderSearchButtonElement()}
         </div>
       );
@@ -169,13 +171,18 @@ class App extends Component {
   }
 
   render() {
+    const { places, placeDetails } = this.props;
+    const bookmarkClass = places.places || placeDetails.place || this.state.showAddLabelPage ?
+      'bookmarks-button' :
+      'bookmarks-button overlay-on';
+
     return (
       <div className="app-container">
         {this._renderSearchBarContainer()}
         {this._renderQuickSearchButtons()}
         {this._renderLeftPanel()}
         {this._renderBookmarksPanel()}
-        <button className="bookmarks-button" onClick={this._showBookmarksPanel}></button>
+        <button className={bookmarkClass} onClick={this._showBookmarksPanel}></button>
         {this._renderOverlay()}
         <Map />
       </div>

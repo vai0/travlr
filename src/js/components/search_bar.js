@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { placesFetchData } from '../actions/index';
+import { placesFetchData, placeDetailsClose } from '../actions/index';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -11,6 +11,13 @@ class SearchBar extends Component {
 
   componentDidMount() {
     this.input.focus();
+    const { placeDetails } = this.props;
+    if (placeDetails) this.input.style.paddingLeft = '50px';
+  }
+
+  componentDidUpdate(prevProps) {
+    const { placeDetails } = this.props;
+    this.input.style.paddingLeft = placeDetails ? '50px' : '22px';
   }
 
   _onInputChange(event) {
@@ -27,9 +34,27 @@ class SearchBar extends Component {
     }
   }
 
+  _closePlaceDetails() {
+    this.props.placeDetailsClose();
+  }
+
+  _renderClosePlaceDetailsButton() {
+    if (this.props.placeDetails) {
+      return (
+        <button
+          className="close-place-details-button"
+          onClick={this._closePlaceDetails.bind(this)}
+        >
+        </button>
+      );
+    }
+  }
+
+
   render() {
     return (
       <form onSubmit={this._handleSubmit.bind(this)} className="search-bar">
+        {this._renderClosePlaceDetailsButton()}
         <input
           value={this.state.term}
           onChange={this._onInputChange.bind(this)}
@@ -42,11 +67,12 @@ class SearchBar extends Component {
   }
 }
 
-function mapStateToProps({ map }) {
+function mapStateToProps({ map, placeDetails }) {
   return {
     mapCenter: map.mapCenter,
-    mapBounds: map.mapBounds
+    mapBounds: map.mapBounds,
+    placeDetails: placeDetails.place
   }
 }
 
-export default connect(mapStateToProps, { placesFetchData })(SearchBar);
+export default connect(mapStateToProps, { placesFetchData, placeDetailsClose })(SearchBar);

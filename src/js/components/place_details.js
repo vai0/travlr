@@ -25,10 +25,6 @@ class PlaceDetails extends Component {
     }
   }
 
-  _closePlaceDetails() {
-    this.props.placeDetailsClose();
-  }
-
   _showAddLabelPage() {
     this.props.showAddLabelPage(true);
   }
@@ -153,7 +149,6 @@ class PlaceDetails extends Component {
             </div>
           </div>
         </div>
-        <button onClick={this._closePlaceDetails.bind(this)}>Back</button>
       </div>
     );
   }

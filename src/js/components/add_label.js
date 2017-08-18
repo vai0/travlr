@@ -121,7 +121,8 @@ class AddLabel extends Component {
           {this._renderMoreOptions()}
           <button className="label-submit-button" type="submit">Save</button>
         </form>
-        <button onClick={this._handleCancelButton.bind(this)}>Back</button>
+        <button className="back-add-label-button" onClick={this._handleCancelButton.bind(this)}></button>
+        <div className="add-label-header-title">Add a label</div>
       </div>
     );
   }

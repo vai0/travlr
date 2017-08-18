@@ -11,6 +11,19 @@
   .search-bar {
     display: flex;
 
+    .close-place-details-button {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 0;
+      outline: 0;
+      border: none;
+      background-image: url('../images/back-place-details-icon.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: Transparent;
+    }
+
     input {
       min-width: 300px;
       height: 50px;
@@ -40,6 +53,10 @@
       background-color: #FFFFFF;
       background-size: 37%;
     }
+  }
+
+  .back-button-offset {
+    padding-left: 50px;
   }
 
   .close-left-panel-button {
