@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { currentMapBounds, setMarkers, placesSetHighlight } from '../actions/index';
+import { currentMapBounds, setMarkers, placesSetHighlight, placeDetailsFetchData } from '../actions/index';
 
 class Map extends Component {
   componentDidMount() {
     this.map = new google.maps.Map(this.refs.map, {
       center: { lat: 37.7749, lng: -122.419 },
-      zoom: 13
+      zoom: 13,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+      },
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        position: google.maps.ControlPosition.BOTTOM_RIGHT
+      }
     });
 
     this._bindMapBounds();
@@ -21,6 +30,14 @@ class Map extends Component {
   _removeMarkerObjects() {
     this.markerObjects.forEach(marker => marker.setMap(null));
     this.markerObjects.length = 0;
+  }
+
+  _ignoreIsHighlightedKey(markers) {
+    const newMarkers = JSON.parse(JSON.stringify(markers));
+    for (let place_id in newMarkers) {
+      delete newMarkers[place_id].isHighlighted;
+    }
+    return newMarkers;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,11 +80,13 @@ class Map extends Component {
           map: this.map
         });
         marker.place_id = place_id;
-
+        marker.addListener('click', () => this.props.placeDetailsFetchData(place_id));
+        if (nextProps.markers[place_id].isHighlighted) {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
         // marker.addListener('mouseover', () => this.props.placesSetHighlight(place_id, true));
         // marker.addListener('mouseout', () => this.props.placesSetHighlight(place_id, false));
         this.markerObjects.push(marker);
-        console.log('markers: ', this.markerObjects);
       }
     }
   }
@@ -89,4 +108,4 @@ function mapStateToProps({ userCoords, markers, places, placeDetails, map }) {
   };
 }
 
-export default connect(mapStateToProps, { currentMapBounds, setMarkers, placesSetHighlight })(Map);
+export default connect(mapStateToProps, { currentMapBounds, setMarkers, placesSetHighlight, placeDetailsFetchData })(Map);

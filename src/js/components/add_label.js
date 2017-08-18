@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bookmarksAddPlace } from '../actions/index';
+import Ratings from './ratings';
 
 class AddLabel extends Component {
   constructor(props) {
@@ -53,15 +54,18 @@ class AddLabel extends Component {
 
   _createExistingLabelInput(label) {
     return (
-      <label key={label}>
-        {label}
-        <input
-          type="radio"
-          value={label}
-          name="labelName"
-          checked={this.state.labelName === label}
-          onChange={this._handleLabelNameChange}/>
-      </label>
+      <div key={label}>
+        <label className="existing-label">
+          <input
+            type="radio"
+            value={label}
+            name="labelName"
+            className="existing-label-input"
+            checked={this.state.labelName === label}
+            onChange={this._handleLabelNameChange}/>
+          <div className="existing-label-checked">{label}</div>
+        </label>
+      </div>
     );
   }
 
@@ -71,54 +75,53 @@ class AddLabel extends Component {
         <input
           type="text"
           placeholder="New label"
+          className="new-label-input"
           ref={input => this.newLabel = input}
         />
       );
     } else {
-      return this.labels.map(this._createExistingLabelInput);
+      return (
+        <div className="existing-label-container">
+          {this.labels.map(this._createExistingLabelInput)}
+        </div>
+      );
     }
   }
 
   render() {
-    const { name, formatted_address } = this.props.placeDetails.place;
+    const { name, vicinity, rating } = this.props.placeDetails.place;
 
     return (
-      <div>
-        <button onClick={this._handleCancelButton.bind(this)}>Back</button>
-        <div>
-          {name}<br />
-          {formatted_address}
+      <div className="add-label-container">
+        <div className="place-main-info">
+          <div className="name">{name}</div>
+          <div className="vicinity">{vicinity}</div>
+          <Ratings rating={rating} />
         </div>
-        <br />
-        <br />
-        <br />
-        <form onSubmit={this._handleSubmit}>
-          <label>
-            Create new
+        <form className="label-form" onSubmit={this._handleSubmit}>
+          <label className="label-type">
             <input
               type="radio"
               value="new"
               name="labelType"
               checked={this.state.labelType === 'new'}
               onChange={this._handleLabelTypeChange}/>
+            <span>Create new</span>
+            <div className="label-type-radio-button"></div>
           </label>
-          <label>
-            Use existing label
+          <label className="label-type">
             <input type="radio"
               value="existing"
               name="labelType"
               checked={this.state.labelType === 'existing'}
               onChange={this._handleLabelTypeChange}/>
+            <span>Use existing label</span>
+            <div className="label-type-radio-button"></div>
           </label>
-          <br />
-          <br />
-          <br />
           {this._renderMoreOptions()}
-          <br />
-          <br />
-          <br />
-          <button type="submit">Save</button>
+          <button className="label-submit-button" type="submit">Save</button>
         </form>
+        <button onClick={this._handleCancelButton.bind(this)}>Back</button>
       </div>
     );
   }

@@ -1,0 +1,127 @@
+.bookmarks-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  min-width: 400px;
+  height: 100vh;
+  z-index: 20;
+  background-color: $secondary-color;
+  box-shadow: 0 12px 16px 1px rgba(0, 0, 0, 0.14),
+              0 4px 22px 3px rgba(0, 0, 0, 0.12),
+              0 6px 7px -4px rgba(0, 0, 0, 0.4);
+
+  .header {
+    background-color: $primary-color;
+    height: 90px;
+
+    .header-title {
+    	font-family: 'Avenir-Next-Regular';
+    	font-size: 20px;
+    	color: #FFFFFF;
+      position: absolute;
+      top: 40px;
+      left: 85px;
+    }
+
+    .hide-bookmarks-button {
+      position: absolute;
+      top: 40px;
+      left: 43px;
+      width: 22px;
+      height: 22px;
+      outline: 0;
+      border: none;
+      background-image: url('../images/bookmarks-header-close-icon.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: Transparent;
+      cursor: pointer;
+    }
+  }
+
+  .bookmarks-list-container {
+    height: calc(100vh - 90px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 28px 26px;
+    box-sizing: border-box;
+
+    .bookmarks-category {
+      margin-bottom: 22px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .category-header {
+        font-family: 'Avenir-Next-Medium';
+        font-size: 18px;
+        text-transform: capitalize;
+        margin-bottom: 15px;
+        color: $primary-color;
+      }
+    }
+
+    .bookmarks-place {
+      position: relative;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 22px 24px;
+      cursor: pointer;
+      transition: box-shadow 0.13s ease-in;
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.09);
+
+      &:hover {
+        box-shadow: 0 9px 15px 0 rgba(132, 130, 130, 0.17),
+                    0 2px 10px 0 rgba(0, 0, 0, 0.09);
+      }
+
+      .name {
+        font-family: 'Avenir-Next-Demibold';
+        font-size: 20px;
+        color: black;
+        opacity: 0.87;
+      }
+
+      .vicinity {
+        font-family: 'Avenir-Next-Regular';
+        font-size: 14px;
+        color: black;
+        opacity: 0.87;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+
+      .open-now {
+        color: black;
+        opacity: 0.6;
+        font-size: 13px;
+      }
+
+      .closed-now {
+        font-family: 'Avenir-Next-Regular';
+        color: $error-red;
+        font-size: 13px;
+      }
+
+      .remove-place-button {
+        position: absolute;
+        top: 22px;
+        right: 24px;
+        width: 20px;
+        height: 20px;
+        border: none;
+        border-radius: 50%;
+        outline: 0;
+        background-image: url("../images/bookmarks-remove-place-icon.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: $error-red;
+        cursor: pointer;
+      }
+    }
+  }
+}

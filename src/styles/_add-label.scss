@@ -1,0 +1,123 @@
+.add-label-container {
+
+  .label-form {
+    padding: 50px 50px 30px 50px;
+
+    .label-type {
+      position: relative;
+    	font-family: 'Avenir-Next-Regular';
+    	font-size: 14px;
+      margin-right: 25px;
+      cursor: pointer;
+
+      input[type=radio][name=labelType] {
+        visibility: hidden;
+        margin-right: 16px;
+
+        &:checked {
+          ~ span {
+            font-family: 'Avenir-Next-Medium';
+          }
+
+          ~ .label-type-radio-button {
+            border-color: #32bd8c;
+
+            &:before {
+              display: inline-block;
+              position: absolute;
+              content: '';
+              left: 3px;
+              top: 3px;
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              z-index: 10;
+              background-color: $primary-color;
+            }
+          }
+        }
+      }
+
+      .label-type-radio-button {
+        display: inline-block;
+        position: absolute;
+        left: -1px;
+        top: -1px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #727272;
+      }
+    }
+
+    .new-label-input {
+      border: none;
+      background-color: Transparent;
+      border-bottom: 2px solid $primary-color;
+    	font-family: 'Avenir-Next-Regular';
+    	font-size: 14px;
+      outline: 0;
+      margin-top: 40px;
+      padding-bottom: 5px;
+      width: 200px;
+
+      &::placeholder {
+        color: #9A9A9A;
+      }
+    }
+
+    .label-submit-button {
+      display: block;
+      margin-top: 50px;
+      border: none;
+      border-radius: 3px;
+      width: 90px;
+      height: 40px;
+      background-color: #C8C8C8;
+      font-size: 14px;
+      font-family: 'Avenir-Next-Demibold';
+      color: #FFFFFF;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+
+  .existing-label-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 25px;
+
+    input[type=radio][name=labelName] {
+      display: none;
+
+      &:checked {
+        ~ .existing-label-checked {
+          background-color: $primary-color;
+          border-color: $primary-color;
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    .existing-label-checked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 9px 20px;
+    	border-radius: 100px;
+      background-color: Transparent;
+    	border: solid 1px #727272;
+      color: #727272;
+      font-family: 'Avenir-Next-Regular';
+      font-size: 12px;
+      text-transform: capitalize;
+      cursor: pointer;
+      margin-right: 9px;
+      margin-top: 12px;
+    }
+  }
+}

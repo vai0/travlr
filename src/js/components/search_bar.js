@@ -9,16 +9,22 @@ class SearchBar extends Component {
     this.state = { term: '' };
   }
 
+  componentDidMount() {
+    this.input.focus();
+  }
+
   _onInputChange(event) {
     this.setState({ term: event.target.value });
   }
 
   _handleSubmit(event) {
     event.preventDefault();
-    this.props.placesFetchData({
-      keyword: this.state.term,
-      bounds: this.props.mapBounds
-    }, this.props.mapBounds);
+    if (this.state.term !== '') {
+      this.props.placesFetchData({
+        keyword: this.state.term,
+        bounds: this.props.mapBounds
+      }, this.props.mapBounds);
+    }
   }
 
   render() {
@@ -27,8 +33,10 @@ class SearchBar extends Component {
         <input
           value={this.state.term}
           onChange={this._onInputChange.bind(this)}
+          ref={input => this.input = input}
           placeholder="Search and bookmark places..."
         />
+      <button className="search-icon-button"></button>
       </form>
     );
   }

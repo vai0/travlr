@@ -32,10 +32,12 @@
   "dependencies": {
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-rating": "^0.8.1",
     "react-redux": "4.3.0",
     "redux": "^3.0.4",
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.3",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "url-loader": "^0.5.9"
   }
 }

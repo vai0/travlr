@@ -5,6 +5,8 @@ export const PLACES_HAS_ERRORED = 'PLACES_HAS_ERRORED';
 export const PLACES_IS_LOADING = 'PLACES_IS_LOADING';
 export const PLACES_GET_MAP_BOUNDS = 'PLACES_GET_MAP_BOUNDS';
 export const SET_MARKERS = 'SET_MARKERS';
+export const SET_MARKER_HIGHLIGHT = 'SET_MARKER_HIGHLIGHT';
+export const REMOVE_MARKERS = 'REMOVE_MARKERS';
 export const PLACES_HIGHLIGHTED = 'PLACES_HIGHLIGHTED';
 export const PLACE_DETAILS_FETCH_DATA_SUCCESS = 'PLACE_DETAILS_FETCH_DATA_SUCCESS';
 export const PLACE_DETAILS_HAS_ERRORED = 'PLACE_DETAILS_HAS_ERRORED';
@@ -12,6 +14,14 @@ export const PLACE_DETAILS_IS_LOADING = 'PLACE_DETAILS_IS_LOADING';
 export const PLACE_DETAILS_CLOSE = 'PLACE_DETAILS_CLOSE';
 export const BOOKMARKS_ADD_PLACE = 'BOOKMARKS_ADD_PLACE';
 export const BOOKMARKS_REMOVE_PLACE = 'BOOKMARKS_REMOVE_PLACE';
+export const RESET_PLACES_AND_PLACE_DETAILS = 'RESET_PLACES_AND_PLACE_DETAILS';
+export const BOOKMARKS_REFRESH = 'BOOKMARKS_REFRESH';
+
+export function resetPlacesAndPlaceDetails() {
+  return {
+    type: RESET_PLACES_AND_PLACE_DETAILS
+  };
+}
 
 // BOOKMARKS
 
@@ -32,6 +42,13 @@ export function bookmarksRemovePlace(place_id, label) {
     type: BOOKMARKS_REMOVE_PLACE,
     place_id,
     label
+  }
+}
+
+export function bookmarksRefresh(bookmarks) {
+  return {
+    type: BOOKMARKS_REFRESH,
+    bookmarks
   }
 }
 
@@ -86,14 +103,28 @@ export function setMarkers(places) {
   };
 }
 
+export function setMarkerHighlight(place_id, bool) {
+  return {
+    type: SET_MARKER_HIGHLIGHT,
+    place_id,
+    bool
+  };
+}
+
+export function removeMarkers() {
+  return {
+    type: REMOVE_MARKERS
+  };
+}
+
 // PLACES RESULTS LIST
 
 export function placesFetchData(request, bounds) {
   return (dispatch) => {
+    const service = new google.maps.places.PlacesService(document.createElement('div'));
     dispatch(placesUpdateBounds(bounds));
     dispatch(placesHasErrored(false));
     dispatch(placesIsLoading(true));
-    const service = new google.maps.places.PlacesService(document.createElement('div'));
 
     service.nearbySearch(request, (places, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -108,6 +139,31 @@ export function placesFetchData(request, bounds) {
         console.log('places error status: ', status);
       }
     });
+  }
+}
+
+export function placesFetchBookmarks(place_ids) {
+  return (dispatch) => {
+    const promises = place_ids.map(place_id => {
+      return new Promise((resolve, reject) => {
+        const request = { placeId: place_id };
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails(request, (place, status) => {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            resolve(place);
+          } else {
+            reject();
+          }
+        });
+      });
+    });
+
+    Promise.all(promises)
+    .then(places => dispatch({
+      type: PLACES_FETCH_DATA_SUCCESS,
+      places
+    }))
+    .catch(() => dispatch(placesHasErrored(true)));
   }
 }
 
@@ -144,10 +200,10 @@ export function placesUpdateBounds(bounds) {
 
 export function placeDetailsFetchData(placeId) {
   return (dispatch) => {
-    dispatch(placeDetailsHasErrored(false));
-    dispatch(placeDetailsIsLoading(true));
     const request = { placeId };
     const service = new google.maps.places.PlacesService(document.createElement('div'));
+    dispatch(placeDetailsHasErrored(false));
+    dispatch(placeDetailsIsLoading(true));
 
     service.getDetails(request, (place, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {

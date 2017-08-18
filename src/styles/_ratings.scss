@@ -1,0 +1,26 @@
+.rating {
+  font-size: 14px;
+  margin-top: 10px;
+  opacity: 0.5;
+
+  .rating-numerical {
+    margin-left: 10px;
+    position: relative;
+    bottom: 3px;
+  }
+
+  .rating-star-empty {
+    height: 14px;
+    width: 14px;
+    margin-right: 2px;
+    border-radius: 50%;
+    background-color: #CCCCCC;
+  }
+
+  .rating-star-filled {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background-color: $primary-color;
+  }
+}

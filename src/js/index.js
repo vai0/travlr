@@ -24,6 +24,8 @@ persistStore(store, {
   whitelist: ['bookmarks']
 });
 
+// persistStore(store);
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
