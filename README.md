@@ -13,8 +13,8 @@ Your app must include:
 A map with location markers/pins
 A list of locations (Some interactivity is expected between the two).
 You should implement at least one of your own features to show off your abilities (for example a build system, tests, user accounts / cloud storage, in addition to other cool features... the sky is the limit!).
- 
-Please provide your program as a zip or tar archive, with an index.html file. Use whatever libraries, documentation, tutorials, or frameworks you consider necessary. This should be a client-side app, with little or no server code.
+
+Use whatever libraries, documentation, tutorials, or frameworks you consider necessary. This should be a client-side app, with little or no server code.
 
 ### How to Run
 1. run `npm install`
@@ -39,6 +39,6 @@ Please provide your program as a zip or tar archive, with an index.html file. Us
 
 __[Live Demo](https://justinchi.me/travlr/)__
 
-__Libraries:__ React, Redux, redux-logger, redux-think
+__Libraries:__ React, Redux, redux-logger, redux-think, Google Places API
 
 __Tools:__ webpack, npm
