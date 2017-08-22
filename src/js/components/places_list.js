@@ -21,7 +21,7 @@ class PlacesList extends Component {
     const { isLoading, hasErrored, places } = this.props.placesList;
     let renderPlaces;
     if (isLoading) {
-      renderPlaces = (<span>Loading...</span>);
+      // renderPlaces = (<span>Loading...</span>);
     } else if (hasErrored) {
       renderPlaces = (<span>Error!</span>);
     } else if (places) {

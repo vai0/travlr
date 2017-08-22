@@ -50,19 +50,20 @@ class SearchBar extends Component {
     }
   }
 
-
   render() {
     return (
-      <form onSubmit={this._handleSubmit.bind(this)} className="search-bar">
+      <div>
+        <form onSubmit={this._handleSubmit.bind(this)} className="search-bar">
+          <input
+            value={this.state.term}
+            onChange={this._onInputChange.bind(this)}
+            ref={input => this.input = input}
+            placeholder="Search and bookmark places..."
+            />
+          <button type="submit" className="search-icon-button"></button>
+        </form>
         {this._renderClosePlaceDetailsButton()}
-        <input
-          value={this.state.term}
-          onChange={this._onInputChange.bind(this)}
-          ref={input => this.input = input}
-          placeholder="Search and bookmark places..."
-        />
-      <button className="search-icon-button"></button>
-      </form>
+      </div>
     );
   }
 }

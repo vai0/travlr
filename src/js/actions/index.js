@@ -46,16 +46,36 @@ export function bookmarksRemovePlace(place_id, label) {
 }
 
 export function bookmarksRefresh(bookmarks) {
-  return {
-    type: BOOKMARKS_REFRESH,
-    bookmarks
+  return (dispatch) => {
+    const promises = bookmarks.map(bookmark => {
+      return new Promise((resolve, reject) => {
+        const request = { placeId: bookmark.place_id };
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails(request, (place, status) => {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            place.label = bookmark.label;
+            resolve(place);
+          } else {
+            reject();
+          }
+        });
+      });
+    });
+
+    Promise.all(promises)
+      .then(bookmarks => {
+        dispatch({
+          type: BOOKMARKS_REFRESH,
+          bookmarks
+        })})
+      .catch(() => dispatch(placesHasErrored(true)));
   }
 }
 
 // MAP STUFF
 
 export function fetchLocation() {
-  return (dispatch) => {
+  return dispatch => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const location = {
@@ -135,6 +155,7 @@ export function placesFetchData(request, bounds) {
           places
         });
       } else {
+        dispatch(placesIsLoading(false));
         dispatch(placesHasErrored(true));
         console.log('places error status: ', status);
       }
@@ -150,6 +171,7 @@ export function placesFetchBookmarks(place_ids) {
         const service = new google.maps.places.PlacesService(document.createElement('div'));
         service.getDetails(request, (place, status) => {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
+            dispatch(placesIsLoading(true));
             resolve(place);
           } else {
             reject();
@@ -159,11 +181,18 @@ export function placesFetchBookmarks(place_ids) {
     });
 
     Promise.all(promises)
-    .then(places => dispatch({
-      type: PLACES_FETCH_DATA_SUCCESS,
-      places
-    }))
-    .catch(() => dispatch(placesHasErrored(true)));
+      .then(places => {
+        dispatch({
+          type: PLACES_FETCH_DATA_SUCCESS,
+          places
+        });
+        dispatch(placesIsLoading(false));
+        dispatch(placesHasErrored(false));
+      })
+      .catch(() => {
+        dispatch(placesIsLoading(false));
+        dispatch(placesHasErrored(true));
+      });
   }
 }
 
@@ -213,6 +242,7 @@ export function placeDetailsFetchData(placeId) {
           place
         });
       } else {
+        dispatch(placeDetailsIsLoading(false));
         dispatch(placeDetailsHasErrored(true));
         console.log('place error status: ', status);
       }

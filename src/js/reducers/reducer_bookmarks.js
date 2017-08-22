@@ -23,12 +23,16 @@ export default function(state = {}, action) {
       return newState;
     }
     case BOOKMARKS_REFRESH: {
-      const flattened = flattenBookmarks(action.bookmarks);
-      const newBookmarks = { ...state };
-      for (let place_id in flattened) {
-        const label = flattened[place_id].label;
-        newBookmarks[label][place_id] = flattened[place_id];
-      }
+      const newBookmarks = {};
+      action.bookmarks.forEach(bookmark => {
+        const { label, place_id } = bookmark;
+        if (newBookmarks[label]) {
+          newBookmarks[label][place_id] = bookmark;
+        } else {
+          newBookmarks[label] = {};
+          newBookmarks[label][place_id] = bookmark;
+        }
+      });
       return newBookmarks;
     }
     default:

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="16px" viewBox="0 0 11 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_label</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.1-search" transform="translate(-378.000000, -317.000000)" stroke="#32BD8C" stroke-width="1.638">
+            <g id="card-labeled" transform="translate(26.000000, 293.000000)">
+                <path d="M357.666667,34.4409603 L362,38 L362,25.546 L362,25.546 C362,25.2444525 361.755547,25 361.454,25 L357.714286,25 L353.546,25 C353.244453,25 353,25.2444525 353,25.546 L353,25.546 L353,38 L357.666667,34.4409603 Z" id="ic_label"></path>
+            </g>
+        </g>
+    </g>
+</svg>

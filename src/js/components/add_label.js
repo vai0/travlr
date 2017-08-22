@@ -11,13 +11,15 @@ class AddLabel extends Component {
 
     this.state = {
       labelType: 'new',
-      labelName: this.labels[0]
+      labelName: this.labels[0],
+      newLabelInput: ''
     };
 
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleLabelTypeChange = this._handleLabelTypeChange.bind(this);
     this._handleLabelNameChange = this._handleLabelNameChange.bind(this);
     this._createExistingLabelInput = this._createExistingLabelInput.bind(this);
+    this._handleNewLabelInputChange = this._handleNewLabelInputChange.bind(this);
   }
 
   _fetchExistingLabels() {
@@ -26,14 +28,13 @@ class AddLabel extends Component {
 
   _handleSubmit(event) {
     event.preventDefault();
-    if (this.newLabel) {
-      console.log('new label: ', this.newLabel.value);
-      this.props.bookmarksAddPlace(this.props.placeDetails.place, this.newLabel.value);
-    } else {
-      console.log('existing label: ', this.state.labelName);
+    if (this.state.labelType === 'new' && this.state.newLabelInput !== '') {
+      this.props.bookmarksAddPlace(this.props.placeDetails.place, this.state.newLabelInput);
+      this.props.showAddLabelPage(false);
+    } else if (this.state.labelType === 'existing') {
       this.props.bookmarksAddPlace(this.props.placeDetails.place, this.state.labelName);
+      this.props.showAddLabelPage(false);
     }
-    this.props.showAddLabelPage(false);
   }
 
   _handleCancelButton(event) {
@@ -44,12 +45,30 @@ class AddLabel extends Component {
     this.setState({
       labelType: event.target.value
     });
+    setTimeout(() => {
+      const { labelType, newLabelInput } = this.state;
+      const submit = this.submitButton;
+      submit.disabled = labelType === 'new' && newLabelInput === '' ? true : false;
+      if (labelType === 'existing') submit.disabled = false;
+    }, 50);
   }
 
   _handleLabelNameChange(event) {
     this.setState({
       labelName: event.target.value
     });
+  }
+
+  _handleNewLabelInputChange(event) {
+    this.setState({
+      newLabelInput: event.target.value
+    });
+    setTimeout(() => {
+      const { labelType, newLabelInput } = this.state;
+      const submit = this.submitButton;
+      submit.disabled = labelType === 'new' && newLabelInput === '' ? true : false;
+      if (labelType === 'existing') submit.disabled = false;
+    }, 50);
   }
 
   _createExistingLabelInput(label) {
@@ -72,12 +91,15 @@ class AddLabel extends Component {
   _renderMoreOptions() {
     if (this.state.labelType === 'new') {
       return (
-        <input
-          type="text"
-          placeholder="New label"
-          className="new-label-input"
-          ref={input => this.newLabel = input}
-        />
+        <div>
+          <input
+            type="text"
+            placeholder="New label"
+            className="new-label-input"
+            value={this.state.newLabelInput}
+            onChange={this._handleNewLabelInputChange}
+          />
+        </div>
       );
     } else {
       return (
@@ -105,7 +127,8 @@ class AddLabel extends Component {
               value="new"
               name="labelType"
               checked={this.state.labelType === 'new'}
-              onChange={this._handleLabelTypeChange}/>
+              onChange={this._handleLabelTypeChange}
+            />
             <span>Create new</span>
             <div className="label-type-radio-button"></div>
           </label>
@@ -114,12 +137,20 @@ class AddLabel extends Component {
               value="existing"
               name="labelType"
               checked={this.state.labelType === 'existing'}
-              onChange={this._handleLabelTypeChange}/>
+              onChange={this._handleLabelTypeChange}
+            />
             <span>Use existing label</span>
             <div className="label-type-radio-button"></div>
           </label>
           {this._renderMoreOptions()}
-          <button className="label-submit-button" type="submit">Save</button>
+          <button
+            className="label-submit-button"
+            type="submit"
+            disabled="true"
+            ref={input => this.submitButton = input}
+          >
+            Save
+          </button>
         </form>
         <button className="back-add-label-button" onClick={this._handleCancelButton.bind(this)}></button>
         <div className="add-label-header-title">Add a label</div>

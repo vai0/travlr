@@ -47,11 +47,12 @@ class BookmarksPlace extends Component {
 
   render() {
     const { name, vicinity, opening_hours } = this.props.place;
-
-    const renderOpenNow = opening_hours.open_now ?
-      <div className="open-now">Open now</div> :
-      <div className="closed-now">Closed</div>;
-
+    let renderOpenNow = '';
+    if (opening_hours) {
+      renderOpenNow = opening_hours.open_now ?
+        <div className="open-now">Open now</div> :
+        <div className="closed-now">Closed</div>;
+    }
     return (
       <div
         className="bookmarks-place"

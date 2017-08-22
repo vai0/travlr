@@ -20,7 +20,7 @@ const Ratings = ({ rating }) => {
       </div>
     );
   }
-  return null;
+  return <span></span>;
 }
 
 export default Ratings;

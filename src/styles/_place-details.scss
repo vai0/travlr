@@ -19,6 +19,14 @@
   .place-other-info {
     padding: 30px 50px 30px 50px;
     border-bottom: 1px solid #e0e0e0;
+
+    a {
+      width: 340px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
   }
 
   .place-last-info {
@@ -51,7 +59,7 @@
       text-decoration: none;
 
       &:hover {
-        color: $primary-color;
+        color: $accent-color;
         opacity: 1;
       }
     }
@@ -85,6 +93,10 @@
       border-radius: 0 3px 3px 0;
       outline: 0;
       cursor: pointer;
+
+      &:hover {
+        background-color: $accent-color;
+      }
     }
   }
 
@@ -114,7 +126,7 @@
       border-radius: 50%;
       outline: 0;
       cursor: pointer;
-      background-image: url('../images/place-detail-delete-label-icon.png');
+      background-image: url('../images/place-detail-delete-label-icon.svg');
       background-position: center;
       background-repeat: no-repeat;
       background-color: #FFFFFF;
@@ -129,6 +141,10 @@
     background-color: Transparent;
     outline: 0;
     cursor: pointer;
+
+    &:hover {
+      color: $accent-color;
+    }
   }
 }
 

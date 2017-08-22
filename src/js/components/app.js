@@ -7,6 +7,7 @@ import PlacesList from './places_list';
 import PlaceDetails from './place_details';
 import AddLabel from './add_label';
 import BookmarksList from './bookmarks_list';
+import { flattenBookmarks } from '../helpers';
 
 class App extends Component {
   constructor(props) {
@@ -24,11 +25,8 @@ class App extends Component {
     this._handleClickFetchBookmarks = this._handleClickFetchBookmarks.bind(this);
   }
 
-
-
   componentDidMount() {
     this.props.fetchLocation();
-    this.props.bookmarksRefresh(this.props.bookmarks);
   }
 
   _showAddLabelPage(bool) {
@@ -41,7 +39,6 @@ class App extends Component {
     this.setState({
       showBookMarksPanel: true
     });
-    this.props.bookmarksRefresh(this.props.bookmarks);
   }
 
   _hideBookmarksPanel() {
@@ -137,15 +134,23 @@ class App extends Component {
     return null;
   }
 
-  _renderSearchButtonElement() {
+  _renderLeftPanelCloseButton() {
     const { places, placeDetails } = this.props;
-    return (
-      <button
-        className="close-left-panel-button"
-        onClick={this._closeLeftPanel}
-      >
-      </button>
-    );
+    if (places.isLoading || placeDetails.isLoading) {
+      return (
+        <div className="loading-icon-container">
+          <div className="loading-icon sk-spinner sk-spinner-pulse"></div>
+        </div>
+      );
+    } else {
+      return (
+        <button
+          className="close-left-panel-button"
+          onClick={this._closeLeftPanel}
+          >
+        </button>
+      );
+    }
   }
 
   _renderOverlay() {
@@ -159,7 +164,7 @@ class App extends Component {
       return (
         <div className="search-bar-container">
           <SearchBar placeDetails={this.props.placeDetails.place} />
-          {this._renderSearchButtonElement()}
+          {this._renderLeftPanelCloseButton()}
         </div>
       );
     } else {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="8px" viewBox="0 0 8 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0b-my-labels" transform="translate(-1219.000000, -193.000000)" fill="#FFFFFF">
+            <g id="label-sheet" transform="translate(800.000000, 0.000000)">
+                <g id="card_hover" transform="translate(26.000000, 164.000000)">
+                    <g id="Group-3" transform="translate(387.000000, 23.000000)">
+                        <path d="M10,8.96741509 L7.24644024,6.21385534 C6.9612998,5.92871489 6.49899579,5.92871489 6.21385534,6.21385534 C5.92871489,6.49899579 5.92871489,6.9612998 6.21385534,7.24644024 L8.96741509,10 L6.21385534,12.7535598 C5.92871489,13.0387002 5.92871489,13.5010042 6.21385534,13.7861447 C6.49899579,14.0712851 6.9612998,14.0712851 7.24644024,13.7861447 L10,11.0325849 L12.7535598,13.7861447 C13.0387002,14.0712851 13.5010042,14.0712851 13.7861447,13.7861447 C14.0712851,13.5010042 14.0712851,13.0387002 13.7861447,12.7535598 L11.0325849,10 L13.7861447,7.24644024 C14.0712851,6.9612998 14.0712851,6.49899579 13.7861447,6.21385534 C13.5010042,5.92871489 13.0387002,5.92871489 12.7535598,6.21385534 L10,8.96741509 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -37,7 +37,8 @@
 }
 
 .left-panel {
-  min-width: 440px;
+  position: fixed;
+  width: 440px;
   height: 100vh;
   z-index: 10;
   background-color: $secondary-color;
@@ -56,8 +57,8 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 64px;
-	height: 64px;
+  width: 50px;
+	height: 50px;
   border: none;
   border-radius: 50%;
   outline: none;
@@ -65,14 +66,14 @@
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.15s ease-in;
   cursor: pointer;
-  background-image: url('../images/bookmarks-button-open.png');
+  background-image: url('../images/bookmarks-button-open.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-color: $primary-color;
+  background-size: 30%;
 
   &:hover {
-    box-shadow: 0 9px 15px 0 rgba(132, 130, 130, 0.23),
-                0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    @include shadow-elevation-16dp;
   }
 }
 
@@ -83,8 +84,4 @@
   &:hover {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
-}
-
-.closed {
-  min-width: 0px;
 }

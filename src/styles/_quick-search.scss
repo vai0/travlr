@@ -1,6 +1,6 @@
 .quick-search-labels-container {
   position: fixed;
-  top: 100px;
+  top: 86px;
   left: 20px;
   width: 500px;
   z-index: 2;
@@ -17,7 +17,13 @@
     letter-spacing: .6px;
     text-transform: capitalize;
     margin-right: 14px;
+    margin-top: 14px;
     border-radius: 20px;
+    transition: border 0.15s ease-in;
     cursor: pointer;
+
+    &:hover {
+      border: 2px solid #FFFFFF;
+    }
   }
 }

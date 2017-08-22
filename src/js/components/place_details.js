@@ -21,7 +21,6 @@ class PlaceDetails extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.placeDetails.place !== nextProps.placeDetails.place) {
       this.props.setMarkers(nextProps.placeDetails.place);
-      // this._fetchPhotoUrl(nextProps);
     }
   }
 
@@ -109,10 +108,12 @@ class PlaceDetails extends Component {
   render() {
     const { vicinity, formatted_phone_number, name, opening_hours, photos, rating, website, url, place_id } = this.props.placeDetails.place;
     let photoUrl = 'http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/field/image/158827123_thinkstock_stdlc.jpg';
-    if (photos || photos.length > 0) {
-      const randomNum = Math.floor(Math.random() * photos.length);
-      if (photos[randomNum].getUrl) {
-        photoUrl = photos[randomNum].getUrl({'maxWidth': 440});
+    if (photos) {
+      if (photos.length > 0) {
+        const randomNum = Math.floor(Math.random() * photos.length);
+        if (photos[randomNum].getUrl) {
+          photoUrl = photos[randomNum].getUrl({'maxWidth': 440});
+        }
       }
     }
     return (
@@ -129,7 +130,7 @@ class PlaceDetails extends Component {
           <div className="sub-section">
             <div className="header">Website</div>
             <div className="info">
-              <a href={website}>{website}</a>
+              <a className="ellipsis" target="_blank" href={website}>{website}</a>
             </div>
           </div>
           <div className="sub-section">
