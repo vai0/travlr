@@ -5,7 +5,7 @@ Travel smarter by saving the places you want to go. [Demo](https://justinchi.me/
 
 ### App Requirements:
 
-This app took about 40-hours to build for an interview assignment. I learned lots along the way. Below were the instructions given:
+This app took about 40-hours to build for an interview assignment. I learned lots along the way. Below were the given instructions:
  
 Create a web app (desktop or mobile) that provides a query box and a search button and then calls the Places Library for Google Maps (https://developers.google.com/maps/documentation/javascript/places). Format the results to give a good user experience. 
  
@@ -22,14 +22,11 @@ Use whatever libraries, documentation, tutorials, or frameworks you consider nec
 3. run `npm build` to build a production copy into the `/dist` folder
 
 ### Features
-- react, redux application
-- webpack build system
-- es6, scss pre-processors
 - hovering over a place on the list bounces that place's marker on the map
 - clicking on a marker on the map opens that place's details in list view
 - save your favorite places by labeling them
 - view your labeled locations with 1-click by clicking an existing label below the search bar
-- indiviually view each of your your saved locations sorted by label by clicking the bookmarks icon at the top right
+- indiviually view each of your saved locations sorted by label by clicking the bookmarks icon at the top right
 - stores and syncs saved places to localStorage
 - search results biased towards the area you see on the map
 - sharing your geolocation pans map bounds to your area
@@ -39,6 +36,6 @@ Use whatever libraries, documentation, tutorials, or frameworks you consider nec
 
 __[Live Demo](https://justinchi.me/travlr/)__
 
-__Libraries:__ React, Redux, redux-logger, redux-think, Google Places API
+__Libraries:__ React, Redux, redux-logger, redux-thunk, spinkit, Google Places API
 
 __Tools:__ webpack, npm
