@@ -1,7 +1,8 @@
 import { BOOKMARKS_ADD_PLACE, BOOKMARKS_REMOVE_PLACE, BOOKMARKS_REFRESH } from '../actions/index';
 import { flattenBookmarks } from '../helpers';
+import { bookmarks } from '../defaultBookmarks';
 
-export default function(state = {}, action) {
+export default function(state = { ...bookmarks }, action) {
   switch(action.type) {
     case BOOKMARKS_ADD_PLACE: {
       const newState = { ...state };
