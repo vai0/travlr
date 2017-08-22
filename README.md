@@ -39,6 +39,6 @@ Use whatever libraries, documentation, tutorials, or frameworks you consider nec
 
 __[Live Demo](https://justinchi.me/travlr/)__
 
-__Libraries:__ React, Redux, redux-logger, redux-think
+__Libraries:__ React, Redux, redux-logger, redux-think, Google Places API
 
 __Tools:__ webpack, npm
