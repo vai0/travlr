@@ -19,7 +19,7 @@ Use whatever libraries, documentation, tutorials, or frameworks you consider nec
 ### How to Run
 1. run `npm install`
 2. run `npm start` to spool up `webpack-dev-server`
-3. run `npm build` to build a production copy into the `/dist` folder
+3. run `npm run build` to build a production copy into the `/dist` folder
 
 ### Features
 - hovering over a place on the list bounces that place's marker on the map
