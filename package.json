@@ -31,6 +31,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "axios": "0.18.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-rating": "^0.8.1",
@@ -39,7 +40,6 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.3",
     "redux-thunk": "^2.2.0",
-    "spinkit": "^1.2.5",
-    "url-loader": "^0.5.9"
+    "spinkit": "^1.2.5"
   }
 }
