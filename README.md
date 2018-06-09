@@ -1,5 +1,5 @@
 # travlr
-Travel smarter by saving the places you want to go. [Demo](https://justinchi.me/travlr)
+Travel smarter by saving the places you want to go. [Demo](https://travlr.justinchi.me/)
 
 ![travlr gif 3](https://user-images.githubusercontent.com/1195698/29548165-a9e6146a-86b3-11e7-873b-d4a2d816f1f6.gif)
 
