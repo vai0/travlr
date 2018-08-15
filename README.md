@@ -34,7 +34,7 @@ Use whatever libraries, documentation, tutorials, or frameworks you consider nec
 
 <br />
 
-__[Live Demo](https://justinchi.me/travlr/)__
+__[Live Demo](https://travlr.justinchi.me/)__
 
 __Libraries:__ React, Redux, redux-logger, redux-thunk, spinkit, Google Places API
 
